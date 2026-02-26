@@ -57,16 +57,20 @@
         .titulo-curso {
             display: flex;
             flex-direction: column;
+            gap: 2px;
         }
 
         .titulo-curso span:first-child {
             font-weight: 600;
-            font-size: 1.05rem;
+            font-size: 1.8rem;
         }
 
         .titulo-curso span:last-child {
-            font-size: 0.8rem;
-            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .titulo-curso span:last-child {
+            font-size: 1rem; 
         }
 
         /* CONTENEDOR PRINCIPAL (LADO LADO) */
@@ -80,10 +84,10 @@
         aside {
             width: 260px;
             background-color: #ffffff;
-            border-right: 1px solid var(--gris-borde);
-            padding: 1rem 0.75rem;
+            border-right: none;
+            padding: 0;
             position: sticky;
-            top: 60px;
+            top: 110px;
             height: calc(100vh - 60px); 
             overflow-y: auto;
             flex-shrink: 0; 
@@ -95,15 +99,21 @@
         }
 
         .menu-titulo {
-            font-weight: 600;
-            font-size: 0.95rem;
-            margin-bottom: 0.7rem;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 0; 
+            padding: 1.5rem;
             color: #333;
+            position: sticky;
+            top: 0;
+            background-color: #ffffff; 
+            z-index: 10; 
+            border-bottom: 1px solid #f0f0f0; 
         }
 
         .menu-lista {
             list-style: none;
-            padding: 0;
+            padding: 0 0 1.5rem 0;
             margin: 0;
             font-size: 1rem;
         }
@@ -115,9 +125,11 @@
 
         .menu-lista a {
             display: block;
-            padding: 0.6rem 0.8rem;
+            padding: 0.6rem 1.5rem; 
             text-decoration: none;
-            color: #333;
+            color: #555;
+            border-left: 4px solid transparent;
+            transition: all 0.2s ease;
         }
 
         .menu-lista a:hover {
@@ -125,9 +137,30 @@
         }
 
         .menu-lista .activo a {
-            background-color: var(--verde-principal);
-            color: #fff;
+            background-color: transparent; /* Quitamos el fondo verde */
+            color: var(--verde-principal); /* Texto verde */
             font-weight: 600;
+            border-left: 4px solid var(--verde-principal); /* Barrita verde a la izquierda */
+        }
+
+        .btn-menu-cuadrado {
+            background-color: var(--verde-principal);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            width: 35px;
+            height: 35px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .btn-menu-cuadrado:hover {
+            background-color: var(--verde-oscuro);
         }
 
         /* CONTENIDO CENTRAL */
@@ -140,13 +173,24 @@
             background-color: #ffffff;
             border-radius: 4px;
             box-shadow: 0 0 4px rgba(0,0,0,0.08);
-            border: 1px solid #e0e0e0;
+            
+            /* Bordes superiores y derechos suaves */
+            border-top: 1px solid #e0e0e0;
+            border-right: 1px solid #e0e0e0;
+            
+            /* El efecto "L" amarilla de la imagen */
+            border-left: 4px solid var(--amarillo);
+            border-bottom: 4px solid var(--amarillo);
+            
             margin-bottom: 1.5rem;
         }
 
         .card-header {
             border-bottom: 1px solid #e0e0e0;
             padding: 0.8rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .card-header h2 {
@@ -160,6 +204,12 @@
             font-size: 1.05rem;
             color: #333;
             line-height: 1.6;
+        }
+
+        .logo-seccion {
+            height: 150px;
+            width: auto;
+            object-fit: contain;
         }
 
         h3 {
@@ -243,6 +293,48 @@
             background: #f3f3f3;
         }
 
+        /* --- ESTILOS DEL SOLUCIONARIO --- */
+        .caja-password {
+            background-color: #f9fcff;
+            border: 1px solid #e0edf5;
+            padding: 1.5rem;
+            border-radius: 4px;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .input-pass {
+            padding: 0.6rem;
+            border: 1px solid var(--gris-borde);
+            border-radius: 4px;
+            font-size: 1rem;
+            outline: none;
+            width: 200px;
+        }
+
+        .btn-pass {
+            padding: 0.6rem 1.2rem;
+            background-color: var(--verde-principal);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-left: 0.5rem;
+            font-weight: 600;
+        }
+
+        .btn-pass:hover {
+            background-color: var(--verde-oscuro);
+        }
+
+        .msg-error {
+            color: #d93025;
+            font-size: 0.9rem;
+            margin-top: 0.8rem;
+            display: none;
+        }
+
         /* RESPONSIVE */
         @media (max-width: 900px) {
             .layout { flex-direction: column; }
@@ -255,8 +347,8 @@
 
 <header>
     <div class="logo-area">
-        <button id="btn-menu" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 0 10px 0 0;">☰</button>
-        <img src="logo.png" alt="Logo del curso" class="logo-imagen">
+        <button id="btn-menu" class="btn-menu-cuadrado">☰</button>
+        <img src="UCO.png" alt="Logo del curso" class="logo-imagen">
         <div class="titulo-curso">
             <span>Librerías de Python</span>
             <span>NumPy · Pandas · Matplotlib · Plotly</span>
@@ -275,7 +367,8 @@
             <li><a href="#pandas">3. Pandas</a></li>
             <li><a href="#matplotlib">4. Matplotlib</a></li>
             <li><a href="#plotly">5. Plotly</a></li>
-            <li><a href="#resumen">6. Resumen general</a></li>
+            <li><a href="#solucionario">6. Solucionario</a></li>
+            <li><a href="#resumen">7. Resumen general</a></li>
         </ul>
     </aside>
 
@@ -285,6 +378,7 @@
         <section id="intro" class="card">
             <div class="card-header">
                 <h2>1. Introducción</h2>
+                <img src="py.png" alt="Logo de Python" class="logo-seccion">
             </div>
             <div class="card-body">
                 <p>
@@ -305,6 +399,7 @@
         <section id="numpy" class="card">
             <div class="card-header">
                 <h2>2. NumPy: cálculo numérico con arreglos</h2>
+                <img src="np.png" alt="Logo NumPy" class="logo-seccion">
             </div>
             <div class="card-body">
                 <p>
@@ -429,6 +524,7 @@ T = A.T              # traspuesta</code></pre>
         <section id="pandas" class="card">
             <div class="card-header">
                 <h2>3. Pandas: manipulación de datos tabulares</h2>
+                <img src="pd.png" alt="Logo de Python" class="logo-seccion">
             </div>
             <div class="card-body">
                 <p>
@@ -554,6 +650,7 @@ df_join = pd.merge(ventas, clientes, on="cliente_id", how="left")</code></pre>
         <section id="matplotlib" class="card">
             <div class="card-header">
                 <h2>4. Matplotlib: gráficos estáticos en 2D</h2>
+                <img src="plt.png" alt="Logo de Python" class="logo-seccion">
             </div>
             <div class="card-body">
                 <p>
@@ -671,6 +768,7 @@ plt.show()</code></pre>
         <section id="plotly" class="card">
             <div class="card-header">
                 <h2>5. Plotly: gráficos interactivos</h2>
+                <img src="px.png" alt="Logo de Python" class="logo-seccion">
             </div>
             <div class="card-body">
                 <p>
@@ -777,6 +875,329 @@ fig.show()</code></pre>
             </div>
         </section>
 
+        <section id="solucionario" class="card">
+            <div class="card-header">
+                <h2>6. Solucionario de Ejercicios</h2>
+            </div>
+            <div class="card-body">
+                
+                <div id="bloque-password" class="caja-password">
+                    <p><strong>Acceso Restringido</strong></p>
+                    <p>Introduce el PIN del docente para desbloquear las soluciones.</p>
+                    <input type="password" id="input-pass" class="input-pass" placeholder="Ingresa el PIN">
+                    <button id="btn-pass" class="btn-pass">Desbloquear</button>
+                    <div id="msg-error" class="msg-error">PIN incorrecto. Intenta nuevamente.</div>
+                </div>
+
+                <div id="bloque-soluciones" style="display: none; margin-top: 1.5rem;">
+    <div class="nota">
+        <strong>Soluciones desbloqueadas.</strong> Puedes copiar el código para ejecutarlo en clase.
+    </div>
+
+    <h3>Soluciones: NumPy</h3>
+    <div class="grid-ejercicios">
+        <div class="ejercicio">
+            <strong>Ejercicio 1</strong>
+            <pre><code>import numpy as np
+a = np.arange(1, 101)
+print(a.sum(), a.mean(), a.std())</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 2</strong>
+            <pre><code>m = np.random.rand(5, 5)
+print("Filas:", m.sum(axis=1))
+print("Columnas:", m.sum(axis=0))</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 3</strong>
+            <pre><code>m = np.arange(16).reshape(4, 4)
+diag = np.diag(m)
+print(diag)</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 4</strong>
+            <pre><code>a = np.array([1, 2, 3, 4, 5, 6])
+pares = a[a % 2 == 0]
+print(pares)</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 5</strong>
+            <pre><code>n = np.random.randn(1000)
+pct = ((n >= -1) & (n <= 1)).mean() * 100
+print(n.mean(), n.var(), pct)</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 6</strong>
+            <pre><code>A = np.array([[1, 2], [3, 4]])
+B = np.array([[5, 6], [7, 8]])
+prod = A @ B
+invA = np.linalg.inv(A)
+print(prod, invA)</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 7</strong>
+            <pre><code>dados = np.random.randint(1, 7, 10000)
+caras, cuentas = np.unique(dados, return_counts=True)
+frec = cuentas / 10000
+print(dict(zip(caras, frec)))</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 8</strong>
+            <pre><code>m = np.random.rand(3, 4)
+medias = m.mean(axis=1).reshape(3, 1)
+m_centrada = m - medias</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 9</strong>
+            <pre><code>x = np.linspace(-2, 2, 100)
+y = np.linspace(-2, 2, 100)
+X, Y = np.meshgrid(x, y)
+Z = X**2 + Y**2
+print(Z.min(), Z.max())</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 10</strong>
+            <pre><code>def procesar(lista):
+    m = np.array(lista)
+    return m, m.T, m.sum(axis=0)
+res = procesar([[1,2],[3,4]])</code></pre>
+        </div>
+    </div>
+
+    <h3>Soluciones: Pandas</h3>
+    <div class="grid-ejercicios">
+        <div class="ejercicio">
+            <strong>Ejercicio 1</strong>
+            <pre><code>import pandas as pd
+df = pd.read_csv("ventas.csv")
+df["ingreso"] = df["cantidad"] * df["precio"]
+total = df["ingreso"].sum()</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 2</strong>
+            <pre><code># media por grupo
+medias = df.groupby("grupo")["nota"].mean()
+# max por grupo
+idx_max = df.groupby("grupo")["nota"].idxmax()
+mejores = df.loc[idx_max]</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 3</strong>
+            <pre><code>print(df.isna().sum())
+m = df["col_num"].mean()
+df["col_num"] = df["col_num"].fillna(m)</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 4</strong>
+            <pre><code>res = df.groupby("producto")["ventas"].sum()
+res = res.sort_values(ascending=False)
+print(res)</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 5</strong>
+            <pre><code>df_final = pd.merge(pedidos, clientes, 
+                    on="id_cliente", how="left")
+print(df_final[["id_pedido", "ciudad"]])</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 6</strong>
+            <pre><code>df["rezago_1"] = df["demanda"].shift(1)
+df["media_7d"] = df["demanda"].rolling(7).mean()</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 7</strong>
+            <pre><code>df["llegada"] = pd.to_datetime(df["llegada"])
+df["salida"] = pd.to_datetime(df["salida"])
+diff = df["salida"] - df["llegada"]
+df["duracion_h"] = diff.dt.total_seconds()/3600</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 8</strong>
+            <pre><code># Wide to Long
+long_df = df.melt(id_vars="id", var_name="mes")
+# Long to Wide
+wide_df = long_df.pivot(index="id", 
+             columns="mes", values="value")</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 9</strong>
+            <pre><code>agg = df.groupby("ciudad").agg(
+    salario=("salario", "mean"),
+    n=("salario", "count"))
+res = agg[agg["n"] > 50]</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 10</strong>
+            <pre><code>sub = df[df["edad"] > 30].sort_values("edad")
+sub.to_excel("filtrado.xlsx", 
+             sheet_name="Mayores_30", index=False)</code></pre>
+        </div>
+    </div>
+
+    <h3>Soluciones: Matplotlib</h3>
+    <div class="grid-ejercicios">
+        <div class="ejercicio">
+            <strong>Ejercicio 1</strong>
+            <pre><code>import matplotlib.pyplot as plt
+x = np.linspace(0, 10, 100)
+plt.plot(x, np.sin(x), 'r--', label='sin')
+plt.plot(x, np.cos(x), 'b-', label='cos')
+plt.legend(); plt.show()</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 2</strong>
+            <pre><code>d = np.random.randn(1000)
+plt.hist(d, bins=30, color='lightgray')
+plt.axvline(d.mean(), color='r')
+plt.axvline(d.mean()+d.std(), color='b', ls=':')
+plt.axvline(d.mean()-d.std(), color='b', ls=':')
+plt.show()</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 3</strong>
+            <pre><code>fig, ax = plt.subplots(2, 2)
+ax[0,0].plot([1,2], [1,2])
+ax[0,1].plot([1,2], [2,1])
+ax[1,0].bar(['A','B'], [1,2])
+ax[1,1].scatter([1,2], [2,1])
+plt.tight_layout(); plt.show()</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 4</strong>
+            <pre><code>meses = ['Ene', 'Feb', 'Mar']
+ventas = [100, 150, 120]
+bars = plt.bar(meses, ventas)
+for bar in bars:
+    yval = bar.get_height()
+    plt.text(bar.get_x() + 0.3, yval + 2, yval)
+plt.show()</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 5</strong>
+            <pre><code>fechas = pd.date_range("20230101", periods=10)
+y = np.random.rand(10)
+plt.plot(fechas, y)
+plt.xticks(rotation=45)
+plt.tight_layout(); plt.show()</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 6</strong>
+            <pre><code>x, y = np.random.rand(2, 50)
+colores = np.random.rand(50)
+tamanios = 1000 * np.random.rand(50)
+plt.scatter(x, y, c=colores, s=tamanios, alpha=0.5)
+plt.show()</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 7</strong>
+            <pre><code>corr = pd.DataFrame(np.random.rand(4,4)).corr()
+cax = plt.matshow(corr, cmap='coolwarm')
+plt.colorbar(cax)
+plt.show()</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 8</strong>
+            <pre><code>plt.style.use('ggplot')
+plt.plot([1, 2, 3], [4, 5, 2])
+plt.title("Estilo ggplot")
+plt.show()
+plt.style.use('default') # Restaurar</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 9</strong>
+            <pre><code>plt.plot([1, 2], [1, 2])
+plt.savefig("grafico.png", dpi=300)
+plt.savefig("grafico.pdf")</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 10</strong>
+            <pre><code>cols = df.select_dtypes(include=np.number).columns
+for col in cols:
+    plt.figure()
+    df[col].plot(kind='hist', title=col)
+    plt.show()</code></pre>
+        </div>
+    </div>
+
+    <h3>Soluciones: Plotly</h3>
+    <div class="grid-ejercicios">
+        <div class="ejercicio">
+            <strong>Ejercicio 1</strong>
+            <pre><code>import plotly.express as px
+df = px.data.gapminder().query("year==2007")
+fig = px.scatter(df, x="gdpPercap", y="lifeExp", 
+           size="pop", color="continent")
+fig.show()</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 2</strong>
+            <pre><code>df = px.data.stocks()
+fig = px.line(df, x='date', y='GOOG')
+fig.update_xaxes(rangeslider_visible=True)
+fig.show()</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 3</strong>
+            <pre><code>df = px.data.medals_long()
+fig = px.bar(df, x="nation", y="count", 
+             color="medal", title="Medallas")
+fig.show()</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 4</strong>
+            <pre><code>corr = px.data.iris().corr(numeric_only=True)
+fig = px.imshow(corr, text_auto=True, 
+                aspect="auto")
+fig.show()</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 5</strong>
+            <pre><code>df = px.data.tips()
+fig = px.box(df, x="day", y="total_bill", 
+             color="smoker")
+fig.show()</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 6</strong>
+            <pre><code>pd.options.plotting.backend = "plotly"
+df = pd.DataFrame({"A": [1, 2], "B": [3, 4]})
+fig = df.plot(kind='bar')
+fig.show()</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 7</strong>
+            <pre><code>import plotly.graph_objects as go
+fig = go.Figure()
+fig.add_trace(go.Scatter(y=[1,2,3], name="A"))
+fig.add_trace(go.Scatter(y=[3,2,1], name="B"))
+# Botones omitidos por brevedad, usar updatemenus
+fig.show()</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 8</strong>
+            <pre><code>z = np.random.rand(10, 10)
+fig = go.Figure(data=[go.Surface(z=z)])
+fig.update_layout(title="Superficie 3D")
+fig.show()</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 9</strong>
+            <pre><code>from plotly.subplots import make_subplots
+fig = make_subplots(rows=1, cols=2)
+fig.add_trace(go.Bar(y=[1,2,3]), row=1, col=1)
+fig.add_trace(go.Scatter(y=[3,2,1]), row=1, col=2)
+fig.show()</code></pre>
+        </div>
+        <div class="ejercicio">
+            <strong>Ejercicio 10</strong>
+            <pre><code>fig = px.scatter(x=[0, 1], y=[0, 1])
+fig.write_html("mi_grafico_interactivo.html")</code></pre>
+        </div>
+    </div>
+</div>
+            </div>
+        </section>
+
         <!-- RESUMEN -->
         <section id="resumen" class="card">
             <div class="card-header">
@@ -837,6 +1258,34 @@ fig.show()</code></pre>
         if (btnMenu && sidebar) {
             btnMenu.addEventListener("click", () => {
                 sidebar.classList.toggle("oculta");
+            });
+        }
+
+        // --- LÓGICA DEL SOLUCIONARIO ---
+        const btnPass = document.getElementById("btn-pass");
+        const inputPass = document.getElementById("input-pass");
+        const msgError = document.getElementById("msg-error");
+        const bloqueSoluciones = document.getElementById("bloque-soluciones");
+        const bloquePassword = document.getElementById("bloque-password");
+
+        if (btnPass) {
+            btnPass.addEventListener("click", () => {
+                if (inputPass.value === "5708") {
+                    // Si la clave es correcta, ocultamos el formulario y mostramos las soluciones
+                    bloquePassword.style.display = "none";
+                    bloqueSoluciones.style.display = "block";
+                } else {
+                    // Si es incorrecta, mostramos el error y limpiamos la caja
+                    msgError.style.display = "block";
+                    inputPass.value = "";
+                }
+            });
+
+            // Permitir que también se desbloquee presionando la tecla "Enter"
+            inputPass.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") {
+                    btnPass.click();
+                }
             });
         }
 
