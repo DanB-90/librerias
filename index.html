@@ -2,78 +2,321 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
-    <title>Guía práctica de NumPy, Pandas, Matplotlib y Plotly</title>
+    <title>Librerías de Python</title>
     <style>
-        body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; padding: 0; line-height: 1.6; }
-        header { background: #222; color: #fff; padding: 1rem 2rem; position: sticky; top: 0; z-index: 10; }
-        header h1 { margin: 0; font-size: 1.4rem; }
-        nav a { color: #fff; margin-right: 1rem; text-decoration: none; font-size: 0.95rem; }
-        nav a:hover { text-decoration: underline; }
-        main { padding: 1.5rem 2rem 3rem 2rem; max-width: 1200px; margin: auto; }
-        h2 { border-bottom: 2px solid #eee; padding-bottom: 0.3rem; margin-top: 2rem; }
-        h3 { margin-top: 1.5rem; }
-        code { background: #f4f4f4; padding: 2px 4px; border-radius: 3px; font-family: "Fira Code", "Menlo", monospace; font-size: 0.9rem; }
-        pre { background: #f4f4f4; padding: 0.8rem; border-radius: 4px; overflow-x: auto; font-size: 0.9rem; }
-        section { margin-bottom: 2rem; }
-        .tag { display: inline-block; background: #eee; padding: 2px 6px; border-radius: 3px; font-size: 0.75rem; margin-right: 0.3rem; }
-        .ejercicio { border-left: 4px solid #0077cc; padding: 0.7rem 0.9rem; margin: 0.5rem 0; background: #f9fcff; }
-        .ejercicio strong { display: block; margin-bottom: 0.2rem; }
-        .grid-ejercicios { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0.7rem; }
-        ul { padding-left: 1.25rem; }
-        table { border-collapse: collapse; margin: 1rem 0; width: 100%; max-width: 900px; }
-        th, td { border: 1px solid #ddd; padding: 0.4rem 0.5rem; font-size: 0.9rem; }
-        th { background: #f0f0f0; }
-        .nota { background: #fff7e6; border-left: 4px solid #ffb300; padding: 0.7rem 0.9rem; margin: 1rem 0; font-size: 0.9rem; }
-        @media (max-width: 700px) {
-            header { padding: 0.8rem 1rem; }
-            main { padding: 1rem; }
+        :root {
+            --verde-principal: #008744;
+            --verde-oscuro: #006837;
+            --amarillo: #ffcc00;
+            --gris-fondo: #f5f5f5;
+            --gris-borde: #dddddd;
+        }
+
+        * { box-sizing: border-box; }
+        
+        html {
+            scroll-behavior: smooth;   /* Hace que el desplazamiento sea una animación fluida, no un salto brusco */
+            scroll-padding-top: 120px; /* El espacio exacto para evitar que la barra tape el contenido */
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--gris-fondo);
+        }
+
+        /* BARRA SUPERIOR */
+        header {
+            background-color: var(--verde-principal);
+            color: #fff;
+            padding: 0.6rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000; 
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-imagen {
+            height: 80px; 
+            width: auto;  
+            object-fit: contain; 
+            border-radius: 4px; 
+            background-color: #ffffff; 
+            padding: 2px; 
+        }
+
+        .titulo-curso {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .titulo-curso span:first-child {
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .titulo-curso span:last-child {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        /* CONTENEDOR PRINCIPAL (LADO LADO) */
+        .layout {
+            display: flex;
+            min-height: calc(100vh - 60px);
+            align-items: flex-start;
+        }
+
+        /* MENÚ LATERAL IZQUIERDO */
+        aside {
+            width: 260px;
+            background-color: #ffffff;
+            border-right: 1px solid var(--gris-borde);
+            padding: 1rem 0.75rem;
+            position: sticky;
+            top: 60px;
+            height: calc(100vh - 60px); 
+            overflow-y: auto;
+            flex-shrink: 0; 
+            transition: margin-left 0.3s ease; 
+        }
+
+        aside.oculta {
+            margin-left: -260px;
+        }
+
+        .menu-titulo {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.7rem;
+            color: #333;
+        }
+
+        .menu-lista {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 0.88rem;
+        }
+
+        .menu-lista li {
+            border-radius: 4px;
+            margin-bottom: 0.2rem;
+        }
+
+        .menu-lista a {
+            display: block;
+            padding: 0.4rem 0.6rem;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .menu-lista a:hover {
+            background-color: #e9f5ef;
+        }
+
+        .menu-lista .activo a {
+            background-color: var(--verde-principal);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* CONTENIDO CENTRAL */
+        main {
+            flex: 1;
+            padding: 1.5rem;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 4px;
+            box-shadow: 0 0 4px rgba(0,0,0,0.08);
+            border: 1px solid #e0e0e0;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header {
+            border-bottom: 1px solid #e0e0e0;
+            padding: 0.8rem 1rem;
+        }
+
+        .card-header h2 {
+            margin: 0;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .card-body {
+            padding: 1rem 1.1rem 1.2rem 1.1rem;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        h3 {
+            font-size: 0.95rem;
+            margin-top: 1rem;
+            margin-bottom: 0.4rem;
+            color: var(--verde-oscuro);
+        }
+
+        p {
+            margin-top: 0.35rem;
+            margin-bottom: 0.35rem;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-family: "Fira Code", Menlo, monospace;
+            font-size: 0.85rem;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 0.7rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            border: 1px solid #e0e0e0;
+        }
+
+        ul {
+            padding-left: 1.1rem;
+        }
+
+        .nota {
+            background: #fff9e6;
+            border-left: 4px solid var(--amarillo);
+            padding: 0.6rem 0.8rem;
+            font-size: 0.85rem;
+            margin: 0.6rem 0;
+        }
+
+        .grid-ejercicios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 0.6rem;
+            margin-top: 0.4rem;
+        }
+
+        .ejercicio {
+            background: #f9fcff;
+            border: 1px solid #e0edf5;
+            border-left: 4px solid var(--verde-principal);
+            border-radius: 4px;
+            padding: 0.55rem 0.7rem;
+            font-size: 0.85rem;
+        }
+
+        .ejercicio strong {
+            display: block;
+            margin-bottom: 0.2rem;
+            color: var(--verde-oscuro);
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 0.8rem 0;
+            font-size: 0.85rem;
+        }
+
+        th, td {
+            border: 1px solid #e0e0e0;
+            padding: 0.35rem 0.45rem;
+            vertical-align: top;
+        }
+
+        th {
+            background: #f3f3f3;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .layout { flex-direction: column; }
+            aside { width: 100%; border-right: none; border-bottom: 1px solid var(--gris-borde); position: static; height: auto; overflow-y: visible;}
+            aside.oculta { display: none; }
         }
     </style>
 </head>
 <body>
+
 <header>
-    <h1>Guía práctica: NumPy, Pandas, Matplotlib y Plotly</h1>
-    <nav>
-        <a href="#numpy">NumPy</a>
-        <a href="#pandas">Pandas</a>
-        <a href="#matplotlib">Matplotlib</a>
-        <a href="#plotly">Plotly</a>
-        <a href="#resumen">Resumen rápido</a>
-    </nav>
+    <div class="logo-area">
+        <button id="btn-menu" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 0 10px 0 0;">☰</button>
+        <img src="logo.png" alt="Logo del curso" class="logo-imagen">
+        <div class="titulo-curso">
+            <span>Librerías de Python</span>
+            <span>NumPy · Pandas · Matplotlib · Plotly</span>
+            <span>Docente: Daniel Betancur Trujillo</span>
+        </div>
+    </div>
 </header>
 
-<main>
-    <section id="intro">
-        <h2>Introducción</h2>
-        <p>
-            Este sitio resume las librerías de Python más usadas para análisis de datos:
-            NumPy, Pandas, Matplotlib y Plotly.
-        </p>
-        <p>
-            La idea es que puedas usarlo como material de clase o autoestudio:
-            tienes explicación conceptual, ejemplos de código y al menos 10 ejercicios de práctica por librería .
-        </p>
-        <div class="nota">
-            <strong>Requisito técnico:</strong> se asume que sabes ejecutar código en Python e instalar librerías con <code>pip install numpy pandas matplotlib plotly</code>.
-        </div>
-    </section>
-
-    <!-- ================== NUMPY ================== -->
-    <section id="numpy">
-        <h2>NumPy: cálculo numérico con arreglos</h2>
-        <p>
-            NumPy es la base del ecosistema científico de Python: proporciona arreglos multidimensionales y operaciones vectorizadas eficientes para cálculo numérico.
-        </p>
-
-        <h3>Conceptos clave</h3>
-        <ul>
-            <li><span class="tag">ndarray</span> Estructura central: un arreglo n-dimensional homogéneo.</li>
-            <li><span class="tag">Vectorización</span> Operar sobre arreglos completos sin bucles explícitos de Python.</li>
-            <li><span class="tag">Broadcasting</span> Reglas para operar arreglos de formas diferentes de manera automática.</li>
+<div class="layout">
+    <!-- MENÚ LATERAL -->
+    <aside>
+        <div class="menu-titulo">Contenido</div>
+        <ul class="menu-lista">
+            <li class="activo"><a href="#intro">1. Introducción</a></li>
+            <li><a href="#numpy">2. NumPy</a></li>
+            <li><a href="#pandas">3. Pandas</a></li>
+            <li><a href="#matplotlib">4. Matplotlib</a></li>
+            <li><a href="#plotly">5. Plotly</a></li>
+            <li><a href="#resumen">6. Resumen general</a></li>
         </ul>
+    </aside>
 
-        <h3>Importación y creación de arreglos</h3>
-        <pre><code>import numpy as np
+    <!-- CONTENIDO -->
+    <main>
+        <!-- INTRO -->
+        <section id="intro" class="card">
+            <div class="card-header">
+                <h2>1. Introducción</h2>
+            </div>
+            <div class="card-body">
+                <p>
+                    Este sitio resume las librerías de Python más usadas para análisis de datos:
+                    NumPy, Pandas, Matplotlib y Plotly.
+                </p>
+                <p>
+                    La idea es que puedas usarlo como material de clase o autoestudio:
+                    tienes explicación conceptual, ejemplos de código y al menos 10 ejercicios de práctica por librería.
+                </p>
+                <div class="nota">
+                    <strong>Requisito técnico:</strong> se asume que sabes ejecutar código en Python e instalar librerías con <code>pip install numpy pandas matplotlib plotly</code>.
+                </div>
+            </div>
+        </section>
+
+        <!-- NUMPY -->
+        <section id="numpy" class="card">
+            <div class="card-header">
+                <h2>2. NumPy: cálculo numérico con arreglos</h2>
+            </div>
+            <div class="card-body">
+                <p>
+                    NumPy es la base del ecosistema científico de Python: proporciona arreglos multidimensionales y operaciones vectorizadas eficientes para cálculo numérico.
+                </p>
+
+                <h3>Conceptos clave</h3>
+                <ul>
+                    <li>Estructura central: un arreglo n-dimensional homogéneo (<code>ndarray</code>).</li>
+                    <li>Vectorización: operar sobre arreglos completos sin bucles explícitos de Python.</li>
+                    <li>Broadcasting: reglas para operar arreglos de formas diferentes de manera automática.</li>
+                </ul>
+
+                <h3>Importación y creación de arreglos</h3>
+                <pre><code>import numpy as np
 
 # Desde listas
 a = np.array([1, 2, 3])
@@ -89,10 +332,10 @@ x = np.linspace(0, 1, 5)     # 5 puntos de 0 a 1
 # Arreglos especiales
 z = np.zeros((3, 3))
 o = np.ones((2, 4))
-i = np.eye(4)</code></pre> 
+i = np.eye(4)</code></pre>
 
-        <h3>Operaciones básicas y estadísticas</h3>
-        <pre><code>a = np.array([1, 2, 3, 4])
+                <h3>Operaciones básicas y estadísticas</h3>
+                <pre><code>a = np.array([1, 2, 3, 4])
 
 b = a * 2          # [2,4,6,8]
 c = a + 10         # [11,12,13,14]
@@ -101,10 +344,10 @@ a_sum = a.sum()
 a_mean = a.mean()
 a_std = a.std()
 a_min = a.min()
-a_max = a.max()</code></pre> 
+a_max = a.max()</code></pre>
 
-        <h3>Indexación, slicing y máscaras</h3>
-        <pre><code>m = np.array([[10, 20, 30],
+                <h3>Indexación, slicing y máscaras</h3>
+                <pre><code>m = np.array([[10, 20, 30],
               [40, 50, 60],
               [70, 80, 90]])
 
@@ -114,10 +357,10 @@ sub = m[0:2, 1:3]      # submatriz
 
 # Máscaras booleanas
 mask = m &gt;= 50
-valores = m[mask]      # elementos &gt;= 50</code></pre> 
+valores = m[mask]      # elementos &gt;= 50</code></pre>
 
-        <h3>Broadcasting y operaciones matriciales</h3>
-        <pre><code>x = np.array([1, 2, 3])
+                <h3>Broadcasting y operaciones matriciales</h3>
+                <pre><code>x = np.array([1, 2, 3])
 M = np.array([[10, 20, 30],
               [40, 50, 60]])
 
@@ -131,62 +374,66 @@ B = np.array([[5, 6],
               [7, 8]])
 
 C = A @ B            # producto de matrices
-T = A.T              # traspuesta</code></pre> 
+T = A.T              # traspuesta</code></pre>
 
-        <h3>Ejercicios propuestos (NumPy)</h3>
-        <div class="grid-ejercicios">
-            <div class="ejercicio">
-                <strong>Ejercicio 1:</strong>
-                Crea un arreglo 1D con los números del 1 al 100 y calcula la suma, media y desviación estándar.
+                <h3>Ejercicios propuestos (NumPy)</h3>
+                <div class="grid-ejercicios">
+                    <div class="ejercicio">
+                        <strong>Ejercicio 1:</strong>
+                        Crea un arreglo 1D con los números del 1 al 100 y calcula la suma, media y desviación estándar.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 2:</strong>
+                        Genera una matriz 5×5 con números aleatorios entre 0 y 1 y obtén la suma de cada fila y de cada columna.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 3:</strong>
+                        Construye una matriz 4×4 con valores del 0 al 15 usando <code>np.arange</code> y reordénala con <code>reshape</code>. Extrae la diagonal.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 4:</strong>
+                        A partir de un arreglo de enteros, crea una máscara booleana que identifique los números pares y obtén solo esos elementos.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 5:</strong>
+                        Genera 1000 valores de una normal estándar con <code>np.random.randn</code> y calcula media, varianza y el porcentaje de datos entre -1 y 1.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 6:</strong>
+                        Crea dos matrices compatibles y calcula el producto matricial, la traspuesta y la inversa (cuando exista) usando <code>np.linalg</code>.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 7:</strong>
+                        Simula el lanzamiento de un dado 10 000 veces con <code>np.random.randint</code> y calcula la frecuencia relativa de cada cara.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 8:</strong>
+                        Usa broadcasting para restar a cada fila de una matriz 3×4 el valor medio de esa fila (centrado por fila).
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 9:</strong>
+                        Genera una malla 2D con <code>np.meshgrid</code> para x,y en [-2,2] y evalúa la función x² + y². Analiza los valores mínimo y máximo.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 10:</strong>
+                        Implementa una función que reciba una lista de listas, la convierta en <code>ndarray</code> y devuelva: matriz original, traspuesta y suma por columnas.
+                    </div>
+                </div>
             </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 2:</strong>
-                Genera una matriz 5×5 con números aleatorios entre 0 y 1 y obtén la suma de cada fila y de cada columna.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 3:</strong>
-                Construye una matriz 4×4 con valores del 0 al 15 usando <code>np.arange</code> y reordénala con <code>reshape</code>. Extrae la diagonal.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 4:</strong>
-                A partir de un arreglo de enteros, crea una máscara booleana que identifique los números pares y obtén solo esos elementos.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 5:</strong>
-                Genera 1000 valores de una normal estándar con <code>np.random.randn</code> y calcula media, varianza y el porcentaje de datos entre -1 y 1.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 6:</strong>
-                Crea dos matrices compatibles y calcula el producto matricial, la traspuesta y la inversa (cuando exista) usando <code>np.linalg</code>.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 7:</strong>
-                Simula el lanzamiento de un dado 10 000 veces con <code>np.random.randint</code> y calcula la frecuencia relativa de cada cara.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 8:</strong>
-                Usa broadcasting para restar a cada fila de una matriz 3×4 el valor medio de esa fila (centrado por fila).
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 9:</strong>
-                Genera una malla 2D con <code>np.meshgrid</code> para x,y en [-2,2] y evalúa la función x² + y². Analiza los valores mínimo y máximo.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 10:</strong>
-                Implementa una función que reciba una lista de listas, la convierta en <code>ndarray</code> y devuelva: matriz original, traspuesta y suma por columnas.
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ================== PANDAS ================== -->
-    <section id="pandas">
-        <h2>Pandas: manipulación de datos tabulares</h2>
-        <p>
-            Pandas proporciona estructuras flexibles (Series y DataFrame) para trabajar con datos tipo tabla, similares a hojas de cálculo y tablas SQL.
-        </p>
+        <!-- PANDAS -->
+        <section id="pandas" class="card">
+            <div class="card-header">
+                <h2>3. Pandas: manipulación de datos tabulares</h2>
+            </div>
+            <div class="card-body">
+                <p>
+                    Pandas proporciona estructuras flexibles (Series y DataFrame) para trabajar con datos tipo tabla, similares a hojas de cálculo y tablas SQL.
+                </p>
 
-        <h3>Estructuras básicas: Series y DataFrame</h3>
-        <pre><code>import pandas as pd
+                <h3>Estructuras básicas: Series y DataFrame</h3>
+                <pre><code>import pandas as pd
 
 # Series
 s = pd.Series([10, 20, 30], index=["a", "b", "c"])
@@ -197,16 +444,16 @@ data = {
     "edad": [23, 30, 35],
     "ciudad": ["Bogotá", "Medellín", "Cali"],
 }
-df = pd.DataFrame(data)</code></pre> 
+df = pd.DataFrame(data)</code></pre>
 
-        <h3>Carga y guardado de datos</h3>
-        <pre><code>df = pd.read_csv("datos.csv", sep=",")
+                <h3>Carga y guardado de datos</h3>
+                <pre><code>df = pd.read_csv("datos.csv", sep=",")
 df_excel = pd.read_excel("datos.xlsx", sheet_name="Hoja1")
 
-df.to_csv("salida.csv", index=False)</code></pre> 
+df.to_csv("salida.csv", index=False)</code></pre>
 
-        <h3>Selección, filtrado y operaciones comunes</h3>
-        <pre><code># Inspección rápida
+                <h3>Selección, filtrado y operaciones comunes</h3>
+                <pre><code># Inspección rápida
 df.head()
 df.info()
 df.describe()
@@ -221,19 +468,19 @@ bogota = df[df["ciudad"] == "Bogotá"]
 
 # Condiciones combinadas
 filtro = (df["edad"] &gt; 25) &amp; (df["ciudad"] != "Cali")
-df_filtrado = df[filtro]</code></pre> 
+df_filtrado = df[filtro]</code></pre>
 
-        <h3>Creación, modificación y manejo de valores faltantes</h3>
-        <pre><code>df["salario"] = [3000, 4500, 5000]   # nueva columna
+                <h3>Creación, modificación y manejo de valores faltantes</h3>
+                <pre><code>df["salario"] = [3000, 4500, 5000]   # nueva columna
 df["edad_2"] = df["edad"] ** 2
 
 # Valores faltantes
 df.isna().sum()
 df["salario"] = df["salario"].fillna(df["salario"].mean())
-df = df.dropna()</code></pre> 
+df = df.dropna()</code></pre>
 
-        <h3>Agrupación, agregaciones y joins</h3>
-        <pre><code># Agrupar por ciudad
+                <h3>Agrupación, agregaciones y joins</h3>
+                <pre><code># Agrupar por ciudad
 por_ciudad = df.groupby("ciudad")["salario"].mean()
 
 # Varios agregados
@@ -252,62 +499,66 @@ clientes = pd.DataFrame({
     "ciudad": ["Bogotá", "Medellín", "Cali"],
 })
 
-df_join = pd.merge(ventas, clientes, on="cliente_id", how="left")</code></pre> 
+df_join = pd.merge(ventas, clientes, on="cliente_id", how="left")</code></pre>
 
-        <h3>Ejercicios propuestos (Pandas)</h3>
-        <div class="grid-ejercicios">
-            <div class="ejercicio">
-                <strong>Ejercicio 1:</strong>
-                Lee un archivo CSV de ventas (fecha, producto, cantidad, precio) y calcula el ingreso total por fila y el total general.
+                <h3>Ejercicios propuestos (Pandas)</h3>
+                <div class="grid-ejercicios">
+                    <div class="ejercicio">
+                        <strong>Ejercicio 1:</strong>
+                        Lee un archivo CSV de ventas (fecha, producto, cantidad, precio) y calcula el ingreso total por fila y el total general.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 2:</strong>
+                        A partir de un DataFrame de estudiantes (nombre, nota, grupo), obtén la nota media por grupo y el estudiante con la nota máxima en cada grupo.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 3:</strong>
+                        Identifica valores faltantes en un DataFrame, cuenta cuántos hay por columna y reemplaza los faltantes de una columna numérica por la media.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 4:</strong>
+                        Usa <code>groupby</code> para calcular el total de ventas por producto y ordénalos de mayor a menor.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 5:</strong>
+                        Combina dos DataFrames: uno de pedidos (id_cliente, fecha) y otro de clientes (id_cliente, ciudad) para obtener un DataFrame con la ciudad de cada pedido.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 6:</strong>
+                        Dado un DataFrame de series temporales (fecha, demanda), crea una columna con el rezago de 1 periodo y otra con el promedio móvil de 7 días.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 7:</strong>
+                        A partir de un DataFrame con horarios de llegada y salida de turnos, calcula la duración del turno (en horas) usando columnas de tipo datetime.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 8:</strong>
+                        Reestructura un DataFrame de formato ancho a largo (wide → long) y viceversa usando <code>melt</code> y <code>pivot</code>.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 9:</strong>
+                        Calcula, para cada ciudad, el salario medio y el número de registros. Filtra solo las ciudades con más de 50 registros.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 10:</strong>
+                        Exporta un subconjunto filtrado y ordenado de tu DataFrame a Excel, en una hoja específica, sin el índice.
+                    </div>
+                </div>
             </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 2:</strong>
-                A partir de un DataFrame de estudiantes (nombre, nota, grupo), obtén la nota media por grupo y el estudiante con la nota máxima en cada grupo.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 3:</strong>
-                Identifica valores faltantes en un DataFrame, cuenta cuántos hay por columna y reemplaza los faltantes de una columna numérica por la media.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 4:</strong>
-                Usa <code>groupby</code> para calcular el total de ventas por producto y ordénalos de mayor a menor.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 5:</strong>
-                Combina dos DataFrames: uno de pedidos (id_cliente, fecha) y otro de clientes (id_cliente, ciudad) para obtener un DataFrame con la ciudad de cada pedido.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 6:</strong>
-                Dado un DataFrame de series temporales (fecha, demanda), crea una columna con el rezago de 1 periodo y otra con el promedio móvil de 7 días.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 7:</strong>
-                A partir de un DataFrame con horarios de llegada y salida de turnos, calcula la duración del turno (en horas) usando columnas de tipo datetime.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 8:</strong>
-                Reestructura un DataFrame de formato ancho a largo (wide → long) y viceversa usando <code>melt</code> y <code>pivot</code>.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 9:</strong>
-                Calcula, para cada ciudad, el salario medio y el número de registros. Filtra solo las ciudades con más de 50 registros.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 10:</strong>
-                Exporta un subconjunto filtrado y ordenado de tu DataFrame a Excel, en una hoja específica, sin el índice.
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ================== MATPLOTLIB ================== -->
-    <section id="matplotlib">
-        <h2>Matplotlib: gráficos estáticos en 2D</h2>
-        <p>
-            Matplotlib es la librería estándar de gráficos en Python para crear figuras estáticas y altamente personalizables.
-        </p>
+        <!-- MATPLOTLIB -->
+        <section id="matplotlib" class="card">
+            <div class="card-header">
+                <h2>4. Matplotlib: gráficos estáticos en 2D</h2>
+            </div>
+            <div class="card-body">
+                <p>
+                    Matplotlib es la librería estándar de gráficos en Python para crear figuras estáticas y altamente personalizables.
+                </p>
 
-        <h3>Configuración básica y tipos de gráficos</h3>
-        <pre><code>import matplotlib.pyplot as plt
+                <h3>Configuración básica y tipos de gráficos</h3>
+                <pre><code>import matplotlib.pyplot as plt
 import numpy as np
 
 x = np.linspace(0, 10, 100)
@@ -320,10 +571,10 @@ plt.ylabel("y")
 plt.title("Función seno")
 plt.legend()
 plt.grid(True)
-plt.show()</code></pre> 
+plt.show()</code></pre>
 
-        <h3>Gráficos de líneas, dispersión, barras e histogramas</h3>
-        <pre><code># Dispersión
+                <h3>Gráficos de líneas, dispersión, barras e histogramas</h3>
+                <pre><code># Dispersión
 x = np.random.rand(100)
 y = np.random.rand(100)
 plt.scatter(x, y)
@@ -335,10 +586,10 @@ plt.bar(categorias, valores)
 
 # Histograma
 datos = np.random.randn(1000)
-plt.hist(datos, bins=30)</code></pre> 
+plt.hist(datos, bins=30)</code></pre>
 
-        <h3>Subplots y composición de figuras</h3>
-        <pre><code>fig, axes = plt.subplots(2, 2, figsize=(8, 6))
+                <h3>Subplots y composición de figuras</h3>
+                <pre><code>fig, axes = plt.subplots(2, 2, figsize=(8, 6))
 
 axes[0, 0].plot(x, np.sin(x))
 axes[0, 0].set_title("Seno")
@@ -353,10 +604,10 @@ axes[1, 1].scatter(np.random.rand(50), np.random.rand(50))
 axes[1, 1].set_title("Dispersión")
 
 plt.tight_layout()
-plt.show()</code></pre> 
+plt.show()</code></pre>
 
-        <h3>Uso con Pandas</h3>
-        <pre><code>import pandas as pd
+                <h3>Uso con Pandas</h3>
+                <pre><code>import pandas as pd
 
 df = pd.DataFrame({
     "x": x,
@@ -365,62 +616,66 @@ df = pd.DataFrame({
 
 df.plot(x="x", y="y", kind="line")   # usa matplotlib por defecto
 plt.title("Gráfico desde Pandas")
-plt.show()</code></pre> 
+plt.show()</code></pre>
 
-        <h3>Ejercicios propuestos (Matplotlib)</h3>
-        <div class="grid-ejercicios">
-            <div class="ejercicio">
-                <strong>Ejercicio 1:</strong>
-                Genera la gráfica de y = sin(x) y y = cos(x) en la misma figura, con leyenda, diferentes colores y estilos de línea.
+                <h3>Ejercicios propuestos (Matplotlib)</h3>
+                <div class="grid-ejercicios">
+                    <div class="ejercicio">
+                        <strong>Ejercicio 1:</strong>
+                        Genera la gráfica de y = sin(x) y y = cos(x) en la misma figura, con leyenda, diferentes colores y estilos de línea.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 2:</strong>
+                        Crea un histograma de 1000 datos de una normal y agrega líneas verticales para media y ±1 desviación estándar.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 3:</strong>
+                        Diseña una figura con 4 subplots: dos de líneas, uno de barras y uno de dispersión. Ajusta títulos y etiquetas.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 4:</strong>
+                        A partir de un DataFrame de ventas por mes, crea un gráfico de barras con los valores y muestra los valores numéricos encima de cada barra.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 5:</strong>
+                        Grafica una serie temporal (fecha vs valor) y rota las etiquetas del eje x para que no se superpongan.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 6:</strong>
+                        Crea una gráfica de dispersión donde el color represente una tercera variable y el tamaño de los puntos una cuarta.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 7:</strong>
+                        Usa un mapa de calor con <code>imshow</code> o <code>matshow</code> para visualizar una matriz de correlaciones.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 8:</strong>
+                        Genera gráficos con diferentes estilos globales (por ejemplo, <code>plt.style.use("ggplot")</code>) y compara resultados.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 9:</strong>
+                        Exporta una figura a un archivo PNG y a PDF con alta resolución (por ejemplo, 300 dpi).
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 10:</strong>
+                        Automatiza la creación de una figura por cada columna numérica de un DataFrame (histograma o boxplot) usando un bucle.
+                    </div>
+                </div>
             </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 2:</strong>
-                Crea un histograma de 1000 datos de una normal y agrega líneas verticales para media y ±1 desviación estándar.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 3:</strong>
-                Diseña una figura con 4 subplots: dos de líneas, uno de barras y uno de dispersión. Ajusta títulos y etiquetas.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 4:</strong>
-                A partir de un DataFrame de ventas por mes, crea un gráfico de barras con los valores y muestra los valores numéricos encima de cada barra.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 5:</strong>
-                Grafica una serie temporal (fecha vs valor) y rota las etiquetas del eje x para que no se superpongan.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 6:</strong>
-                Crea una gráfica de dispersión donde el color represente una tercera variable y el tamaño de los puntos una cuarta.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 7:</strong>
-                Usa un mapa de calor con <code>imshow</code> o <code>matshow</code> para visualizar una matriz de correlaciones.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 8:</strong>
-                Genera gráficos con diferentes estilos globales (por ejemplo, <code>plt.style.use("ggplot")</code>) y compara resultados.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 9:</strong>
-                Exporta una figura a un archivo PNG y a PDF con alta resolución (por ejemplo, 300 dpi).
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 10:</strong>
-                Automatiza la creación de una figura por cada columna numérica de un DataFrame (histograma o boxplot) usando un bucle.
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ================== PLOTLY ================== -->
-    <section id="plotly">
-        <h2>Plotly: gráficos interactivos</h2>
-        <p>
-            Plotly es una librería de gráficos interactivos en Python, ideal para dashboards y visualizaciones web.
-        </p>
+        <!-- PLOTLY -->
+        <section id="plotly" class="card">
+            <div class="card-header">
+                <h2>5. Plotly: gráficos interactivos</h2>
+            </div>
+            <div class="card-body">
+                <p>
+                    Plotly es una librería de gráficos interactivos en Python, ideal para dashboards y visualizaciones web.
+                </p>
 
-        <h3>Plotly Express: sintaxis rápida</h3>
-        <pre><code>import plotly.express as px
+                <h3>Plotly Express: sintaxis rápida</h3>
+                <pre><code>import plotly.express as px
 import pandas as pd
 
 df = px.data.iris()  # dataset de ejemplo
@@ -432,10 +687,10 @@ fig = px.scatter(
     color="species",
     title="Iris: largo vs ancho de sépalo"
 )
-fig.show()</code></pre> 
+fig.show()</code></pre>
 
-        <h3>Gráficos comunes con Plotly Express</h3>
-        <pre><code># Línea
+                <h3>Gráficos comunes con Plotly Express</h3>
+                <pre><code># Línea
 fig = px.line(df, x="x", y="y", title="Serie temporal")
 fig.show()
 
@@ -445,20 +700,20 @@ fig.show()
 
 # Histograma
 fig = px.histogram(df, x="variable", nbins=30)
-fig.show()</code></pre> 
+fig.show()</code></pre>
 
-        <h3>Uso como backend de Pandas</h3>
-        <pre><code>import pandas as pd
+                <h3>Uso como backend de Pandas</h3>
+                <pre><code>import pandas as pd
 import plotly.express as px  # solo para asegurar la instalación
 
 pd.options.plotting.backend = "plotly"
 
 df = pd.DataFrame({"a": [1, 3, 2], "b": [3, 2, 1]})
 fig = df.plot(kind="line")   # devuelve un objeto Figure de plotly
-fig.show()</code></pre> 
+fig.show()</code></pre>
 
-        <h3>Plotly Graph Objects: mayor control</h3>
-        <pre><code>import plotly.graph_objects as go
+                <h3>Plotly Graph Objects: mayor control</h3>
+                <pre><code>import plotly.graph_objects as go
 import numpy as np
 
 x = np.linspace(0, 10, 100)
@@ -471,96 +726,151 @@ fig.update_layout(
     xaxis_title="x",
     yaxis_title="sin(x)"
 )
-fig.show()</code></pre> 
+fig.show()</code></pre>
 
-        <h3>Ejercicios propuestos (Plotly)</h3>
-        <div class="grid-ejercicios">
-            <div class="ejercicio">
-                <strong>Ejercicio 1:</strong>
-                Crea un scatter interactivo con Plotly Express donde el color y el tamaño de los puntos dependan de dos variables diferentes de un DataFrame.
+                <h3>Ejercicios propuestos (Plotly)</h3>
+                <div class="grid-ejercicios">
+                    <div class="ejercicio">
+                        <strong>Ejercicio 1:</strong>
+                        Crea un scatter interactivo con Plotly Express donde el color y el tamaño de los puntos dependan de dos variables diferentes de un DataFrame.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 2:</strong>
+                        Usa Plotly Express para graficar una serie temporal con un selector de rango y un deslizador de zoom en el eje x.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 3:</strong>
+                        Implementa un gráfico de barras apiladas con categorías en el eje x y una variable numérica en el eje y.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 4:</strong>
+                        A partir de un DataFrame de correlaciones, genera un heatmap interactivo que muestre el valor exacto al pasar el ratón por encima.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 5:</strong>
+                        Crea un gráfico de caja (boxplot) por categoría para comparar la distribución de una variable numérica entre grupos.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 6:</strong>
+                        Usa <code>pd.options.plotting.backend = "plotly"</code> y genera un gráfico de líneas y otro de barras directamente desde un DataFrame.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 7:</strong>
+                        Construye una figura con múltiples trazas (líneas) usando <code>graph_objects</code>, con botones para mostrar/ocultar cada serie.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 8:</strong>
+                        Implementa un gráfico 3D (por ejemplo, <code>Scatter3d</code> o superficie) usando datos sintéticos generados con NumPy.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 9:</strong>
+                        Genera un dashboard sencillo combinando dos gráficos (por ejemplo, barras e histograma) usando subplots de Plotly.
+                    </div>
+                    <div class="ejercicio">
+                        <strong>Ejercicio 10:</strong>
+                        Exporta una figura de Plotly a HTML y verifica que se pueda abrir de forma independiente en un navegador.
+                    </div>
+                </div>
             </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 2:</strong>
-                Usa Plotly Express para graficar una serie temporal con un selector de rango y un deslizador de zoom en el eje x.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 3:</strong>
-                Implementa un gráfico de barras apiladas con categorías en el eje x y una variable numérica en el eje y.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 4:</strong>
-                A partir de un DataFrame de correlaciones, genera un heatmap interactivo que muestre el valor exacto al pasar el ratón por encima.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 5:</strong>
-                Crea un gráfico de caja (boxplot) por categoría para comparar la distribución de una variable numérica entre grupos.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 6:</strong>
-                Usa <code>pd.options.plotting.backend = "plotly"</code> y genera un gráfico de líneas y otro de barras directamente desde un DataFrame.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 7:</strong>
-                Construye una figura con múltiples trazas (líneas) usando <code>graph_objects</code>, con botones para mostrar/ocultar cada serie.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 8:</strong>
-                Implementa un gráfico 3D (por ejemplo, <code>Scatter3d</code> o superficie) usando datos sintéticos generados con NumPy.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 9:</strong>
-                Genera un dashboard sencillo combinando dos gráficos (por ejemplo, barras e histograma) usando subplots de Plotly.
-            </div>
-            <div class="ejercicio">
-                <strong>Ejercicio 10:</strong>
-                Exporta una figura de Plotly a HTML y verifica que se pueda abrir de forma independiente en un navegador.
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ================== RESUMEN / TABLA ================== -->
-    <section id="resumen">
-        <h2>Resumen rápido de las librerías</h2>
-        <p>
-            La siguiente tabla resume el rol típico de cada librería en un flujo de análisis de datos.
-        </p>
-        <table>
-            <thead>
-                <tr>
-                    <th>Librería</th>
-                    <th>Rol principal</th>
-                    <th>Tipo de datos</th>
-                    <th>Ejemplos de uso frecuentes</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>NumPy</td>
-                    <td>Cálculo numérico eficiente y algebra lineal.</td>
-                    <td>Arreglos n-dimensionales <code>ndarray</code>.</td>
-                    <td>Operaciones vectorizadas, generación de datos simulados, álgebra lineal básica.</td>
-                </tr>
-                <tr>
-                    <td>Pandas</td>
-                    <td>Manipulación y limpieza de datos tabulares.</td>
-                    <td>Series y DataFrame.</td>
-                    <td>Lectura de CSV/Excel, filtrado, agregaciones, joins, series temporales.</td>
-                </tr>
-                <tr>
-                    <td>Matplotlib</td>
-                    <td>Gráficos estáticos 2D y base para otras librerías.</td>
-                    <td>Figuras y ejes (objetos de gráfico).</td>
-                    <td>Gráficos de líneas, barras, histogramas, subplots, exportar figuras.</td>
-                </tr>
-                <tr>
-                    <td>Plotly</td>
-                    <td>Visualización interactiva y dashboards web.</td>
-                    <td>Objetos de figura interactivos (HTML/JS).</td>
-                    <td>Gráficos interactivos, mapas de calor, gráficos 3D, integración con Pandas.</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-</main>
+        <!-- RESUMEN -->
+        <section id="resumen" class="card">
+            <div class="card-header">
+                <h2>6. Resumen rápido de las librerías</h2>
+            </div>
+            <div class="card-body">
+                <p>
+                    La siguiente tabla resume el rol típico de cada librería en un flujo de análisis de datos.
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Librería</th>
+                            <th>Rol principal</th>
+                            <th>Tipo de datos</th>
+                            <th>Ejemplos de uso frecuentes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>NumPy</td>
+                            <td>Cálculo numérico eficiente y álgebra lineal.</td>
+                            <td>Arreglos n-dimensionales <code>ndarray</code>.</td>
+                            <td>Operaciones vectorizadas, generación de datos simulados, álgebra lineal básica.</td>
+                        </tr>
+                        <tr>
+                            <td>Pandas</td>
+                            <td>Manipulación y limpieza de datos tabulares.</td>
+                            <td>Series y DataFrame.</td>
+                            <td>Lectura de CSV/Excel, filtrado, agregaciones, joins, series temporales.</td>
+                        </tr>
+                        <tr>
+                            <td>Matplotlib</td>
+                            <td>Gráficos estáticos 2D y base para otras librerías.</td>
+                            <td>Figuras y ejes (objetos de gráfico).</td>
+                            <td>Gráficos de líneas, barras, histogramas, subplots, exportar figuras.</td>
+                        </tr>
+                        <tr>
+                            <td>Plotly</td>
+                            <td>Visualización interactiva y dashboards web.</td>
+                            <td>Objetos de figura interactivos (HTML/JS).</td>
+                            <td>Gráficos interactivos, mapas de calor, gráficos 3D, integración con Pandas.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const secciones = document.querySelectorAll("main section");
+        const menuItems = document.querySelectorAll(".menu-lista li");
+        const btnMenu = document.getElementById("btn-menu");
+        const sidebar = document.querySelector("aside");
+
+        // 1. LÓGICA DEL BOTÓN (Ahora está libre y funciona siempre)
+        if (btnMenu && sidebar) {
+            btnMenu.addEventListener("click", () => {
+                sidebar.classList.toggle("oculta");
+            });
+        }
+
+        // 2. LÓGICA DEL SCROLLSPY
+        const opciones = {
+            root: null,
+            rootMargin: "-15% 0px -80% 0px", 
+            threshold: 0
+        };
+
+        const observador = new IntersectionObserver((entradas) => {
+            entradas.forEach(entrada => {
+                if (entrada.isIntersecting) {
+                    menuItems.forEach(item => item.classList.remove("activo"));
+                    const id = entrada.target.getAttribute("id");
+                    const enlaceCorrespondiente = document.querySelector(`.menu-lista a[href="#${id}"]`);
+                    if (enlaceCorrespondiente) {
+                        enlaceCorrespondiente.parentElement.classList.add("activo");
+                    }
+                }
+            });
+        }, opciones);
+
+        secciones.forEach(seccion => {
+            observador.observe(seccion);
+        });
+
+        // 3. LÓGICA DEL FINAL DE PÁGINA
+        window.addEventListener('scroll', () => {
+            const llegoAlFondo = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 5;
+            
+            if (llegoAlFondo) {
+                menuItems.forEach(item => item.classList.remove("activo"));
+                menuItems[menuItems.length - 1].classList.add("activo");
+            }
+        });
+    });
+</script>
 </body>
 </html>
